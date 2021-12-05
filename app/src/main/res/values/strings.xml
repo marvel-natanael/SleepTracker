@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Sleep Tracker</string>
+    <string name="start">Start</string>
+    <string name="working">Working</string>
+    <string name="stopped">Stopped</string>
+    <string name="stop">Stopped</string>
 </resources>

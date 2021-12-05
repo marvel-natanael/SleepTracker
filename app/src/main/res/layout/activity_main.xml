@@ -13,7 +13,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,25 +21,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/alarmButton"
         android:layout_width="164dp"
         android:layout_height="164dp"
-        android:src="@drawable/alarm_button"
+        android:background="@drawable/alarm_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clockTextView"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="06.00"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@id/alarmButton"
-        app:layout_constraintEnd_toEndOf="@id/alarmButton"
-        app:layout_constraintTop_toTopOf="@id/alarmButton"
-        app:layout_constraintBottom_toBottomOf="@id/alarmButton"/>
 
     <TextView
         android:id="@+id/clockTextView"
@@ -57,8 +45,25 @@
         android:layout_height="wrap_content"
         android:text="Your optimal sleep time is 8 hours"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clockTextView"
+        app:layout_constraintTop_toBottomOf="@id/alarmButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <Chronometer
+        android:id="@+id/c_meter"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="28dp"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="@id/alarmButton"
+        app:layout_constraintEnd_toEndOf="@id/alarmButton"
+        app:layout_constraintTop_toTopOf="@id/alarmButton"
+        app:layout_constraintBottom_toBottomOf="@id/alarmButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
