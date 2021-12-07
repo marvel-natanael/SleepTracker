@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:text="No alarm has been set"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/sleepTimeTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
     <TextView
+        android:id="@+id/sleepTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I should wake up at"
+        android:text="Turn off screen to start"
         app:layout_constraintBottom_toTopOf="@id/clockTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
@@ -34,7 +36,7 @@
         android:id="@+id/clockTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="07.00 AM"
+        android:text="00.00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
