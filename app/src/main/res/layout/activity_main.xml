@@ -4,68 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/bg">
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No alarm has been set"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/sleepTimeTextView"
+        android:fontFamily="@font/mplusbold"
+        android:text="@string/no_alarm_has_been_set"
+        android:textColor="@color/pink"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/garis_jam"
+            android:contentDescription="@string/garis_jam" />
+
+        <TextView
+            android:layout_width="253dp"
+            android:layout_height="64dp"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/quictsand"
+            android:letterSpacing="0.1"
+            android:text="@string/jam"
+            android:textColor="@color/pink"
+            android:textSize="40sp" />
+    </FrameLayout>
+
     <TextView
-        android:id="@+id/sleepTimeTextView"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turn off screen to start"
-        app:layout_constraintBottom_toTopOf="@id/clockTextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:fontFamily="@font/mplusbold"
+        android:text="@string/if_i_go_to_bed_t_10_00_pm"
+        android:textSize="15sp"
+        android:textColor="@color/pink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frm"
+        android:layout_marginTop="150dp"/>
+
+    <TextView
+        android:id="@+id/clockTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i_should_wake_up_at"
+        android:textColor="@color/pink"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+<!--    ini tampilan tombol sebelum diklik-->
 
     <ImageButton
         android:id="@+id/alarmButton"
         android:layout_width="164dp"
         android:layout_height="164dp"
         android:background="@drawable/alarm_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clockTextView"/>
+        android:src="@drawable/btn_start_end"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clockTextView"
+        android:visibility="gone"
+        android:contentDescription="@string/tombol_sleep" />
 
     <TextView
-        android:id="@+id/clockTextView"
+        android:id="@+id/sleeping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/mplusbold"
+        android:text="@string/sleep"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/alarmButton"
+        app:layout_constraintEnd_toEndOf="@+id/alarmButton"
+        app:layout_constraintStart_toStartOf="@+id/alarmButton"
+        app:layout_constraintTop_toTopOf="@+id/alarmButton"
+        android:visibility="gone"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your optimal sleep time is 8 hours"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alarmButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+<!--    ini tampilan setelah di klik-->
+
+    <ImageButton
+        android:id="@+id/alarmButtonstart"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
+        android:background="@drawable/alarm_button"
+        android:src="@drawable/btn_proses"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clockTextView"
+        android:visibility="visible"
+        android:contentDescription="@string/tombol_proses" />
 
     <Chronometer
         android:id="@+id/c_meter"
-        android:gravity="center"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="256dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="28dp"
+        android:gravity="center"
         android:textColor="@color/white"
+        android:fontFamily="@font/quictsand"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="@id/alarmButton"
-        app:layout_constraintEnd_toEndOf="@id/alarmButton"
-        app:layout_constraintTop_toTopOf="@id/alarmButton"
-        app:layout_constraintBottom_toBottomOf="@id/alarmButton"/>
+        app:layout_constraintBottom_toBottomOf="@+id/alarmButtonstart"
+        app:layout_constraintEnd_toEndOf="@+id/alarmButtonstart"
+        app:layout_constraintStart_toStartOf="@+id/alarmButtonstart"
+        app:layout_constraintTop_toTopOf="@+id/alarmButtonstart"
+        android:visibility="visible"/>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/your_optimal_sleep_time_is_8_hours"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

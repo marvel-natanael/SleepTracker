@@ -4,6 +4,13 @@
     <string name="working">Working</string>
     <string name="stopped">Stopped</string>
     <string name="stop">Stopped</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_settings">Settings</string>
+    <string name="no_alarm_has_been_set">No alarm has been set</string>
+    <string name="garis_jam">garis jam</string>
+    <string name="if_i_go_to_bed_t_10_00_pm">If I go to bed t 10:00 PM</string>
+    <string name="jam">07:25 AM</string>
+    <string name="i_should_wake_up_at">I should wake up at</string>
+    <string name="tombol_sleep">tombol sleep</string>
+    <string name="sleep">Sleep</string>
+    <string name="tombol_proses">tombol proses</string>
+    <string name="your_optimal_sleep_time_is_8_hours">Your optimal sleep time is 8 hours</string>
 </resources>
