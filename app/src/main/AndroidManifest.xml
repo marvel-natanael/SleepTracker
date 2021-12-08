@@ -10,16 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SleepTracker">
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true"
-            android:label="@string/title_settings"
-            android:parentActivityName=".MainActivity"/>
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:exported="true"
-            android:theme="@style/Theme.Design.Light"
-            android:value=".MainActivity" />
-
+            android:name=".SettingActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
