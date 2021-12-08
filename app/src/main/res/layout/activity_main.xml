@@ -48,22 +48,23 @@
 
     <TextView
         android:id="@+id/textView"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mplusbold"
-        android:text="@string/if_i_go_to_bed_t_10_00_pm"
+        android:text="@string/you_have_slept"
         android:textSize="15sp"
         android:textColor="@color/pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frm"
-        android:layout_marginTop="150dp"/>
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/clockTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/i_should_wake_up_at"
+        android:text="@string/Turn_off_screen"
         android:textColor="@color/pink"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -77,11 +78,10 @@
         android:layout_height="164dp"
         android:background="@drawable/alarm_button"
         android:src="@drawable/btn_start_end"
-        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clockTextView"
-        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/textView3"
         android:contentDescription="@string/tombol_sleep" />
 
     <TextView
@@ -100,19 +100,6 @@
 
 <!--    ini tampilan setelah di klik-->
 
-    <ImageButton
-        android:id="@+id/alarmButtonstart"
-        android:layout_width="164dp"
-        android:layout_height="164dp"
-        android:background="@drawable/alarm_button"
-        android:src="@drawable/btn_proses"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clockTextView"
-        android:visibility="visible"
-        android:contentDescription="@string/tombol_proses" />
-
     <Chronometer
         android:id="@+id/c_meter"
         android:layout_width="wrap_content"
@@ -121,10 +108,10 @@
         android:textColor="@color/white"
         android:fontFamily="@font/quictsand"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/alarmButtonstart"
-        app:layout_constraintEnd_toEndOf="@+id/alarmButtonstart"
-        app:layout_constraintStart_toStartOf="@+id/alarmButtonstart"
-        app:layout_constraintTop_toTopOf="@+id/alarmButtonstart"
+        app:layout_constraintBottom_toBottomOf="@+id/alarmButton"
+        app:layout_constraintEnd_toEndOf="@+id/alarmButton"
+        app:layout_constraintStart_toStartOf="@+id/alarmButton"
+        app:layout_constraintTop_toTopOf="@+id/alarmButton"
         android:visibility="visible"/>
 
     <TextView
