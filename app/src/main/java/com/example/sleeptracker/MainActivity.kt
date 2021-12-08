@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sleeptracker.databinding.ActivityMainBinding
 import android.content.IntentFilter
 import android.view.View
-import android.widget.LinearLayout
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentManager
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,13 +57,31 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val currentTime = sdf.format(Date())
+        var date: Date? = null
+
+        try {
+            date = sdf.parse(currentTime)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.add(Calendar.HOUR, 8)
+
         binding.alarmButton.setOnClickListener {
-            alert()
+            val wakeUpTime = calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE).toString()
+            binding.textView.text = getString(R.string.wake_up_text)
+            binding.clockTextView.text = wakeUpTime
+            viewModel.resetTimer(binding.cMeter)
         }
 
         viewModel.currentTimeString.observe(this) {
             binding.clockTextView.text = it
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

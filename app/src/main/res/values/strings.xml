@@ -19,4 +19,5 @@
     <string name="title_settings">Settings</string>
     <string name="close">Close</string>
     <string name="result_cukup">\"Sepertinya kamu semangat ya hari ini. Kamu sudah siap untuk mengikuti kegiatan apapun! \"</string>
+    <string name="wake_up_text">You should wake up at</string>
 </resources>

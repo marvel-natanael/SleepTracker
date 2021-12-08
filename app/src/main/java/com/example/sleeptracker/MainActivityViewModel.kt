@@ -10,7 +10,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
-    private val currentTime = MutableLiveData<Long>()
+    val currentTime = MutableLiveData<Long>()
     private var chronometerPausedTime: Long = 0
 
     var resultString = "x"
