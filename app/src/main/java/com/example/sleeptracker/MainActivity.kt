@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity() {
     fun alert() {
         val fm = supportFragmentManager
         val resultDialog = ResultDialog()
-        resultDialog.resultText = viewModel.showResultText(resources)
-        resultDialog.resultImage = viewModel.showResultImage()
+        viewModel.setDialog(resources)
+        resultDialog.resultText = viewModel.resultString
+        resultDialog.resultImage = viewModel.resultImage
         resultDialog.show(fm, "fragment_alert")
 
         binding.textView.text = getString(R.string.you_have_slept)

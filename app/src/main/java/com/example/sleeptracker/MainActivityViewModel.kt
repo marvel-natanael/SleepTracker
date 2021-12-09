@@ -1,6 +1,5 @@
 package com.example.sleeptracker
 
-import android.app.AlertDialog
 import android.content.res.Resources
 import android.os.SystemClock
 import android.text.format.DateUtils
@@ -40,17 +39,15 @@ class MainActivityViewModel : ViewModel() {
         meter.stop()
     }
 
-    fun showResultText(res: Resources) : String{
-        resultString = if(currentTime.value!! >= 5000){
-            res.getString(R.string.result_cukup)
-        } else res.getString(R.string.result_kurang)
-        return resultString
-    }
-
-    fun showResultImage() : Int{
-        resultImage = if(currentTime.value!! >= 5000){
-            R.drawable.img_berhasil
-        } else R.drawable.img_gagal
-        return resultImage
+    fun setDialog(res: Resources){
+        if(currentTime.value!! >= 5000){
+            resultString = res.getString(R.string.result_cukup)
+            resultImage = R.drawable.img_berhasil
+        }
+        else
+        {
+            resultString = res.getString(R.string.result_kurang)
+            resultImage = R.drawable.img_gagal
+        }
     }
 }
