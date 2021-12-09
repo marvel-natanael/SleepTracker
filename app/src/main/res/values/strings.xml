@@ -13,4 +13,6 @@
     <string name="sleep">Sleep</string>
     <string name="tombol_proses">tombol proses</string>
     <string name="your_optimal_sleep_time_is_8_hours">Your optimal sleep time is 8 hours</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="alarm">Alarm</string>
 </resources>
