@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gelap"
+    tools:context=".SettingActivity">
+    <!--dark mode-->
+    <ImageView
+        android:id="@+id/imgnotif"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_notif"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtnotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quictsand"
+        android:text="@string/notifikasi"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgnotif"
+        app:layout_constraintStart_toEndOf="@+id/imgnotif"
+        app:layout_constraintTop_toTopOf="@+id/imgnotif" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchnotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:textColor="#C4C4C4"
+        app:layout_constraintBottom_toBottomOf="@+id/txtnotif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtnotif"
+        app:layout_constraintVertical_bias="0.526" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/garis"
+        app:layout_constraintEnd_toEndOf="@+id/switchnotif"
+        app:layout_constraintStart_toStartOf="@+id/imgnotif"
+        app:layout_constraintTop_toBottomOf="@+id/txtnotif" />
+
+    <!--    alarm-->
+    <ImageView
+        android:id="@+id/imgalarm"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/icon_alrm"
+        app:layout_constraintStart_toStartOf="@+id/imgnotif"
+        app:layout_constraintTop_toBottomOf="@+id/imgnotif" />
+
+    <TextView
+        android:id="@+id/txtalrm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quictsand"
+        android:text="@string/alarm"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgalarm"
+        app:layout_constraintStart_toEndOf="@+id/imgalarm"
+        app:layout_constraintTop_toTopOf="@+id/imgalarm" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:textColor="#C4C4C4"
+        app:layout_constraintBottom_toBottomOf="@+id/txtalrm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtalrm"
+        app:layout_constraintVertical_bias="0.526" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/garis"
+        app:layout_constraintEnd_toEndOf="@+id/switchalarm"
+        app:layout_constraintStart_toStartOf="@+id/imgalarm"
+        app:layout_constraintTop_toBottomOf="@+id/txtalrm" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

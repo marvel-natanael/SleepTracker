@@ -20,4 +20,6 @@
     <string name="close">Close</string>
     <string name="result_cukup">\"Sepertinya kamu semangat ya hari ini. Kamu sudah siap untuk mengikuti kegiatan apapun! \"</string>
     <string name="wake_up_text">You should wake up at</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="alarm">Alarm</string>
 </resources>
