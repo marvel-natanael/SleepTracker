@@ -6,10 +6,13 @@ import androidx.fragment.app.DialogFragment
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 
 class ResultDialog: DialogFragment() {
     var resultText = ""
+    var resultImage = R.drawable.img_berhasil
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
         val view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_result, null)
@@ -22,8 +25,11 @@ class ResultDialog: DialogFragment() {
 
         val description = view.findViewById<TextView>(R.id.description)
         val btnClose = view.findViewById<Button>(R.id.closeButton)
+        val img = view.findViewById<ImageView>(R.id.image)
 
         description.text = resultText
+        img.setImageResource(resultImage)
+
         btnClose.setOnClickListener {
             dialog.dismiss()
         }

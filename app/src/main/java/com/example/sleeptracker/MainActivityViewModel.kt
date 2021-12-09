@@ -1,6 +1,7 @@
 package com.example.sleeptracker
 
 import android.app.AlertDialog
+import android.content.res.Resources
 import android.os.SystemClock
 import android.text.format.DateUtils
 import android.widget.Chronometer
@@ -10,10 +11,11 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
-    val currentTime = MutableLiveData<Long>()
+    private val currentTime = MutableLiveData<Long>()
     private var chronometerPausedTime: Long = 0
 
-    var resultString = "x"
+    var resultString = ""
+    var resultImage = R.drawable.img_berhasil
 
     val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime(time / 1000)
@@ -31,7 +33,6 @@ class MainActivityViewModel : ViewModel() {
     fun pauseTimer(meter: Chronometer) {
         chronometerPausedTime = SystemClock.elapsedRealtime() - meter.base
         meter.stop()
-        showResult()
     }
 
     fun resetTimer(meter: Chronometer) {
@@ -39,10 +40,17 @@ class MainActivityViewModel : ViewModel() {
         meter.stop()
     }
 
-    private fun showResult() : String{
+    fun showResultText(res: Resources) : String{
         resultString = if(currentTime.value!! >= 5000){
-            "x"
-        } else "c"
+            res.getString(R.string.result_cukup)
+        } else res.getString(R.string.result_kurang)
         return resultString
+    }
+
+    fun showResultImage() : Int{
+        resultImage = if(currentTime.value!! >= 5000){
+            R.drawable.img_berhasil
+        } else R.drawable.img_gagal
+        return resultImage
     }
 }

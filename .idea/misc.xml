@@ -8,10 +8,12 @@
         <entry key="..\:/SleepTracker/app/src/main/res/drawable/alert_dialog_result.xml" value="0.1" />
         <entry key="..\:/SleepTracker/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1" />
         <entry key="..\:/SleepTracker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.25925925925925924" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/activity_gagal.xml" value="0.1" />
         <entry key="..\:/SleepTracker/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/SleepTracker/app/src/main/res/layout/activity_setting.xml" value="0.25416666666666665" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/activity_setting.xml" value="0.1" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/activity_setting_terbaru.xml" value="0.12360688956433637" />
         <entry key="..\:/SleepTracker/app/src/main/res/layout/activity_settings.xml" value="0.13333333333333333" />
-        <entry key="..\:/SleepTracker/app/src/main/res/layout/alert_dialog_result.xml" value="0.2" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/alert_dialog_result.xml" value="0.1" />
         <entry key="..\:/SleepTracker/app/src/main/res/layout/btn_start_end.xml" value="0.25416666666666665" />
         <entry key="..\:/SleepTracker/app/src/main/res/menu/menu_settings.xml" value="0.1" />
       </map>

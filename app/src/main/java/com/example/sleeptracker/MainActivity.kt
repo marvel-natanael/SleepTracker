@@ -38,12 +38,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun alert()
-    {
+    fun alert() {
         val fm = supportFragmentManager
         val resultDialog = ResultDialog()
-        resultDialog.resultText = getString(R.string.result_cukup)
+        resultDialog.resultText = viewModel.showResultText(resources)
+        resultDialog.resultImage = viewModel.showResultImage()
         resultDialog.show(fm, "fragment_alert")
+
+        binding.textView.text = getString(R.string.you_have_slept)
+        viewModel.currentTimeString.observe(this) {
+            binding.clockTextView.text = it
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,17 +76,19 @@ class MainActivity : AppCompatActivity() {
         calendar.time = date
         calendar.add(Calendar.HOUR, 8)
 
+        val wakeUpTime =
+            calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE)
+                .toString()
+        binding.textView.text = getString(R.string.wake_up_text)
+        binding.clockTextView.text = wakeUpTime
+
+        binding.cMeter.text = getString(R.string.start)
+
         binding.alarmButton.setOnClickListener {
-            val wakeUpTime = calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE).toString()
-            binding.textView.text = getString(R.string.wake_up_text)
-            binding.clockTextView.text = wakeUpTime
             viewModel.resetTimer(binding.cMeter)
+            binding.textView.visibility = View.GONE
+            binding.clockTextView.text = getString(R.string.Turn_off_screen)
         }
-
-        viewModel.currentTimeString.observe(this) {
-            binding.clockTextView.text = it
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
