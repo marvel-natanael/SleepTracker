@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="age">
+        <item>@string/Newborns</item>
+        <item>@string/Infants</item>
+        <item>@string/Toddlers</item>
+        <item>@string/PreSchoolers</item>
+        <item>@string/SchoolAgeChildren</item>
+        <item>@string/Teenagers</item>
+        <item>@string/YoungAdults</item>
+        <item>@string/Adults</item>
+        <item>@string/OlderAdults</item>
+    </string-array>
+</resources>

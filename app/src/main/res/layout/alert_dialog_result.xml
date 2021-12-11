@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12dp"
     android:elevation="4dp"
-    android:backgroundTint="@color/gelap"
+    android:backgroundTint="@color/cardview_dark_background"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/img_berhasil"/>
+            android:src="@drawable/ic_notifications_black_24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,6 +36,7 @@
             android:id="@+id/description"/>
 
         <TextView
+            android:id="@+id/sleep_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -45,17 +46,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description"
-            android:textColor="@color/white"
-            android:id="@+id/sleep_time"/>
+            android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/closeButton"
+            android:id="@+id/close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sleep_time"/>
+            app:layout_constraintTop_toBottomOf="@id/sleep_time_tv"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
