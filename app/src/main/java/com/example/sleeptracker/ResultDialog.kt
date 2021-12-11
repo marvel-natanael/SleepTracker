@@ -12,6 +12,7 @@ import android.widget.TextView
 class ResultDialog: DialogFragment() {
     var resultText = ""
     var resultImage = R.drawable.img_berhasil
+    var resultSleepTime = ""
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
@@ -26,13 +27,16 @@ class ResultDialog: DialogFragment() {
         val description = view.findViewById<TextView>(R.id.description)
         val btnClose = view.findViewById<Button>(R.id.closeButton)
         val img = view.findViewById<ImageView>(R.id.image)
+        val sleepTime = view.findViewById<TextView>(R.id.sleep_time)
 
         description.text = resultText
         img.setImageResource(resultImage)
+        sleepTime.text = resultSleepTime
 
         btnClose.setOnClickListener {
             dialog.dismiss()
         }
+
         return super.onCreateDialog(savedInstanceState)
     }
 }

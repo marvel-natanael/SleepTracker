@@ -35,6 +35,19 @@
             android:textColor="@color/white"
             android:id="@+id/description"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            android:textColor="@color/white"
+            android:id="@+id/sleep_time"/>
+
         <Button
             android:id="@+id/closeButton"
             android:layout_width="wrap_content"
@@ -42,7 +55,7 @@
             android:text="@string/close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description"/>
+            app:layout_constraintTop_toBottomOf="@id/sleep_time"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

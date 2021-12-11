@@ -44,6 +44,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.setDialog(resources)
         resultDialog.resultText = viewModel.resultString
         resultDialog.resultImage = viewModel.resultImage
+
+//        viewModel.currentTimeString.observe(this, {
+//            resultDialog.resultSleepTime = it
+//        })
+
+        resultDialog.resultSleepTime = viewModel.resultMessage
+
         resultDialog.show(fm, "fragment_alert")
 
         binding.textView.text = getString(R.string.you_have_slept)
