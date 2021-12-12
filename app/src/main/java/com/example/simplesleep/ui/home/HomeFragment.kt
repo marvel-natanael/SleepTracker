@@ -77,6 +77,12 @@ class HomeFragment : Fragment() {
 
         binding.midSmallTv.text = getWakeUpTime()
 
+        val shared = requireActivity().getSharedPreferences("KEY_PREF", Context.MODE_PRIVATE)
+        val sleepTimeArray = resources.getStringArray(R.array.sleep_time)
+        val data = shared.getInt("KEY_AGE", 0)
+
+        binding.optimalSleepTimeTv.text = "${getString(R.string.optimal_sleep_time)} ${sleepTimeArray[data]} hours"
+
         binding.alarmButton.setOnClickListener {
             if(homeViewModel.isWorking){
                 homeViewModel.resetTimer(binding.cMeter)
