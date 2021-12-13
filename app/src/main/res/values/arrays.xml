@@ -12,15 +12,27 @@
         <item>@string/OlderAdults</item>
     </string-array>
 
-    <string-array name="sleep_time">
-        <item>14</item>
-        <item>21</item>
-        <item>11</item>
-        <item>10</item>
-        <item>9</item>
-        <item>8</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
+    <string-array name="sleep_time_max">
+        <item>14000</item>
+        <item>21000</item>
+        <item>11000</item>
+        <item>10000</item>
+        <item>9000</item>
+        <item>8000</item>
+        <item>7000</item>
+        <item>7000</item>
+        <item>7000</item>
+    </string-array>
+
+    <string-array name="sleep_time_min">
+        <item>11000</item>
+        <item>10000</item>
+        <item>9000</item>
+        <item>8000</item>
+        <item>7000</item>
+        <item>7000</item>
+        <item>6000</item>
+        <item>6000</item>
+        <item>5000</item>
     </string-array>
 </resources>

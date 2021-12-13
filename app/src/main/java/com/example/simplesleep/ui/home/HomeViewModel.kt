@@ -43,22 +43,28 @@ class HomeViewModel : ViewModel() {
         meter.stop()
     }
 
-    fun setDialog(res: Resources){
+    fun setDialog(res: Resources, min: Long, max: Long){
 
         val s = TimeUnit.MILLISECONDS.toSeconds(currentTime.value!!)
         val m = TimeUnit.MILLISECONDS.toMinutes(currentTime.value!!)
         val h  = TimeUnit.MILLISECONDS.toHours(currentTime.value!!)
 
-        if(currentTime.value!! >= 5000){
-            resultString = res.getString(R.string.enough_sleep)
-            resultSleepTime = "Kamu sudah tidur $h jam $m menit $s detik"
-            resultImage = R.drawable.ic_home_black_24dp
-        }
-        else
-        {
-            resultSleepTime = "Kamu cuma tidur $h jam $m menit $s detik"
-            resultString = res.getString(R.string.less_sleep)
-            resultImage = R.drawable.ic_notifications_black_24dp
+        when {
+            currentTime.value!! in min..max -> {
+                resultString = res.getString(R.string.enough_sleep)
+                resultSleepTime = "Kamu sudah tidur $h jam $m menit $s detik"
+                resultImage = R.drawable.ic_home_black_24dp
+            }
+            currentTime.value!! <= min -> {
+                resultString = res.getString(R.string.less_sleep)
+                resultSleepTime = "Kamu cuma tidur $h jam $m menit $s detik"
+                resultImage = R.drawable.ic_notifications_black_24dp
+            }
+            else -> {
+                resultString = res.getString(R.string.less_sleep)
+                resultSleepTime = "Tidurmu $h jam $m menit $s detik terlalu lama"
+                resultImage = R.drawable.ic_notifications_black_24dp
+            }
         }
     }
 }

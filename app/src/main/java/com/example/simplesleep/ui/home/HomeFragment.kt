@@ -22,6 +22,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var maxSleepTimeArray: Array<String>
+    private lateinit var minSleepTimeArray: Array<String>
+    var data = 0
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -47,7 +50,9 @@ class HomeFragment : Fragment() {
     fun alert() {
         val fm = childFragmentManager
         val resultDialog = ResultDialog()
-        homeViewModel.setDialog(resources)
+        homeViewModel.setDialog(resources,
+            minSleepTimeArray[data].toLong(),
+            maxSleepTimeArray[data].toLong())
         resultDialog.resultText = homeViewModel.resultString
         resultDialog.resultImage = homeViewModel.resultImage
 
@@ -78,18 +83,19 @@ class HomeFragment : Fragment() {
         binding.midSmallTv.text = getWakeUpTime()
 
         val shared = requireActivity().getSharedPreferences("KEY_PREF", Context.MODE_PRIVATE)
-        val sleepTimeArray = resources.getStringArray(R.array.sleep_time)
-        val data = shared.getInt("KEY_AGE", 0)
+        maxSleepTimeArray = resources.getStringArray(R.array.sleep_time_max)
+        minSleepTimeArray = resources.getStringArray(R.array.sleep_time_min)
+        data = shared.getInt("KEY_AGE", 0)
 
-        binding.optimalSleepTimeTv.text = "${getString(R.string.optimal_sleep_time)} ${sleepTimeArray[data]} hours"
+        binding.optimalSleepTimeTv.text =
+            "${getString(R.string.optimal_sleep_time)} ${maxSleepTimeArray[data]} hours"
 
         binding.alarmButton.setOnClickListener {
-            if(homeViewModel.isWorking){
+            if (homeViewModel.isWorking) {
                 homeViewModel.resetTimer(binding.cMeter)
                 binding.midSmallTv.text = ""
                 binding.midBoldTv.text = getString(R.string.turn_off_screen)
-            }
-            else{
+            } else {
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
                 binding.midSmallTv.text = getWakeUpTime()
             }
@@ -99,7 +105,7 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    private fun getWakeUpTime() : String{
+    private fun getWakeUpTime(): String {
         val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
         val currentTime = sdf.format(Date())
         var date: Date? = null
@@ -118,6 +124,7 @@ class HomeFragment : Fragment() {
 
         return wakeUpTime
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
