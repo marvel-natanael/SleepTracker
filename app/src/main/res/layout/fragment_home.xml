@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:layout_gravity="top"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -11,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm_set"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/pink"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +27,11 @@
         app:layout_constraintTop_toTopOf="@+id/alarm_set_tv"
         android:layout_marginTop="100dp">
 
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/garis_jam"
+            android:contentDescription="@string/clock_line"/>
         <DigitalClock
             android:id="@+id/currentTime"
             android:layout_width="253dp"
@@ -33,7 +39,8 @@
             android:layout_margin="5dp"
             android:textAlignment="center"
             android:letterSpacing="0.1"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:textColor="@color/pink"/>
     </FrameLayout>
 
     <TextView
@@ -42,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="@string/wake_up_time"
         android:textSize="15sp"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frm"
@@ -55,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/pink"
         app:layout_constraintEnd_toEndOf="@+id/mid_bold_tv"
         app:layout_constraintStart_toStartOf="@+id/mid_bold_tv"
         app:layout_constraintTop_toBottomOf="@+id/mid_bold_tv" />
@@ -64,13 +71,12 @@
         android:id="@+id/alarm_button"
         android:layout_width="164dp"
         android:layout_height="164dp"
+        android:background="@drawable/btn_start_end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mid_small_tv"
         app:layout_constraintBottom_toTopOf="@id/optimal_sleep_time_tv"
         android:contentDescription="@string/start_button" />
-
-    <!--    ini tampilan setelah di klik-->
 
     <Chronometer
         android:id="@+id/c_meter"
@@ -78,7 +84,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="36sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/alarm_button"
         app:layout_constraintEnd_toEndOf="@+id/alarm_button"
         app:layout_constraintStart_toStartOf="@+id/alarm_button"
@@ -89,9 +95,11 @@
         android:id="@+id/optimal_sleep_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textColor="@color/pink"
         android:text="@string/optimal_sleep_time"
         android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alarm_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

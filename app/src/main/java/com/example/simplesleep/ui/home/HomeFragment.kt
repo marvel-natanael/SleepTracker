@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
         })
 
         resultDialog.resultSleepTime = homeViewModel.resultSleepTime
-
         resultDialog.show(fm, "fragment_alert")
     }
 
@@ -93,10 +92,12 @@ class HomeFragment : Fragment() {
         binding.alarmButton.setOnClickListener {
             if (homeViewModel.isWorking) {
                 homeViewModel.resetTimer(binding.cMeter)
+                binding.alarmButton.background = resources.getDrawable(R.drawable.btn_proses)
                 binding.midSmallTv.text = ""
                 binding.midBoldTv.text = getString(R.string.turn_off_screen)
             } else {
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
+                binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
                 binding.midSmallTv.text = getWakeUpTime()
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
@@ -118,11 +119,8 @@ class HomeFragment : Fragment() {
         calendar.time = date
         calendar.add(Calendar.HOUR, 8)
 
-        val wakeUpTime =
-            calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE)
-                .toString()
-
-        return wakeUpTime
+        return calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE)
+            .toString()
     }
 
     override fun onDestroyView() {
