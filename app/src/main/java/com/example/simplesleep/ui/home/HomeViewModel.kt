@@ -9,6 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.simplesleep.R
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class HomeViewModel : ViewModel() {
@@ -17,7 +20,7 @@ class HomeViewModel : ViewModel() {
 
     var resultString = ""
     var resultImage = R.drawable.ic_home_black_24dp
-    var isWorking = true
+    var isWorking = false
     var resultSleepTime = ""
 
     val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
@@ -43,28 +46,63 @@ class HomeViewModel : ViewModel() {
         meter.stop()
     }
 
-    fun setDialog(res: Resources, min: Long, max: Long){
+    fun setDialog(
+        res: Resources,
+        minRecom: Long,
+        maxRecom: Long,
+        minApp: Long,
+        maxApp: Long
+    ) {
 
         val s = TimeUnit.MILLISECONDS.toSeconds(currentTime.value!!)
         val m = TimeUnit.MILLISECONDS.toMinutes(currentTime.value!!)
-        val h  = TimeUnit.MILLISECONDS.toHours(currentTime.value!!)
+        val h = TimeUnit.MILLISECONDS.toHours(currentTime.value!!)
 
         when {
-            currentTime.value!! in min..max -> {
+            //recommended
+            currentTime.value!! in minRecom..maxRecom -> {
                 resultString = res.getString(R.string.enough_sleep)
-                resultSleepTime = "Kamu sudah tidur $h jam $m menit $s detik"
-                resultImage = R.drawable.ic_home_black_24dp
+                resultImage = R.drawable.img_berhasil
             }
-            currentTime.value!! <= min -> {
+            //not recommended less
+            currentTime.value!! <= minApp -> {
                 resultString = res.getString(R.string.less_sleep)
-                resultSleepTime = "Kamu cuma tidur $h jam $m menit $s detik"
-                resultImage = R.drawable.ic_notifications_black_24dp
+                resultImage = R.drawable.img_gagal
             }
-            else -> {
-                resultString = res.getString(R.string.less_sleep)
-                resultSleepTime = "Tidurmu $h jam $m menit $s detik terlalu lama"
-                resultImage = R.drawable.ic_notifications_black_24dp
+            //not recommended more
+            currentTime.value!! >= maxApp -> {
+                resultString = res.getString(R.string.more_sleep)
+                resultImage = R.drawable.img_gagal
+            }
+            //appropriate
+            currentTime.value!! in minApp..minRecom || currentTime.value!! in maxApp..maxRecom->{
+                resultString = res.getString(R.string.appropriate_sleep)
+                resultImage = R.drawable.img_gagal
             }
         }
+        resultSleepTime = "You have slept for $h hours $m minutes $s seconds"
+    }
+
+    fun getWakeUpTime(addedTime: Int): String {
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val currentTime = sdf.format(Date())
+        var date: Date? = null
+        try {
+            date = sdf.parse(currentTime)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        val calendar = Calendar.getInstance()
+        if (date != null) {
+            calendar.time = date
+        }
+        calendar.add(Calendar.HOUR, addedTime)
+
+        return calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE)
+            .toString()
+    }
+
+    fun parseData(arr: Array<String>,data: Int): Int{
+        return arr[data].toInt()/1000
     }
 }

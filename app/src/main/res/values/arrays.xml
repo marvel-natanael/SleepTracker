@@ -12,9 +12,9 @@
         <item>@string/OlderAdults</item>
     </string-array>
 
-    <string-array name="sleep_time_max">
+    <string-array name="sleep_time_recommended_min">
         <item>14000</item>
-        <item>21000</item>
+        <item>12000</item>
         <item>11000</item>
         <item>10000</item>
         <item>9000</item>
@@ -24,7 +24,19 @@
         <item>7000</item>
     </string-array>
 
-    <string-array name="sleep_time_min">
+    <string-array name="sleep_time_recommended_max">
+        <item>17000</item>
+        <item>15000</item>
+        <item>14000</item>
+        <item>13000</item>
+        <item>11000</item>
+        <item>10000</item>
+        <item>9000</item>
+        <item>9000</item>
+        <item>8000</item>
+    </string-array>
+
+    <string-array name="sleep_time_appropriate_min">
         <item>11000</item>
         <item>10000</item>
         <item>9000</item>
@@ -34,5 +46,17 @@
         <item>6000</item>
         <item>6000</item>
         <item>5000</item>
+    </string-array>
+
+    <string-array name="sleep_time_appropriate_max">
+        <item>19000</item>
+        <item>18000</item>
+        <item>16000</item>
+        <item>14000</item>
+        <item>12000</item>
+        <item>11000</item>
+        <item>11000</item>
+        <item>10000</item>
+        <item>9000</item>
     </string-array>
 </resources>

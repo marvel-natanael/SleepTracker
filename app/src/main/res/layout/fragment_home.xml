@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_fragment"
+    android:layout_margin="18dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:layout_gravity="top"
+    android:layout_height="wrap_content"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -13,69 +13,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm_set"
-        android:textColor="@color/pink"
+        android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/frm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/alarm_set_tv"
-        app:layout_constraintStart_toStartOf="@+id/alarm_set_tv"
-        app:layout_constraintTop_toTopOf="@+id/alarm_set_tv"
-        android:layout_marginTop="100dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/garis_jam"
-            android:contentDescription="@string/clock_line"/>
-        <DigitalClock
-            android:id="@+id/currentTime"
-            android:layout_width="253dp"
-            android:layout_height="64dp"
-            android:layout_margin="5dp"
-            android:textAlignment="center"
-            android:letterSpacing="0.1"
-            android:textSize="40sp"
-            android:textColor="@color/pink"/>
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/mid_bold_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/wake_up_time"
-        android:textSize="15sp"
-        android:textColor="@color/pink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frm"
-        android:layout_marginTop="15dp"/>
-
-    <!--    ini tampilan tombol sebelum diklik-->
-
-    <TextView
-        android:id="@+id/mid_small_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/pink"
-        app:layout_constraintEnd_toEndOf="@+id/mid_bold_tv"
-        app:layout_constraintStart_toStartOf="@+id/mid_bold_tv"
-        app:layout_constraintTop_toBottomOf="@+id/mid_bold_tv" />
-
     <ImageButton
         android:id="@+id/alarm_button"
-        android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
         android:background="@drawable/btn_start_end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mid_small_tv"
-        app:layout_constraintBottom_toTopOf="@id/optimal_sleep_time_tv"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_set_tv"
         android:contentDescription="@string/start_button" />
 
     <Chronometer
@@ -91,16 +41,161 @@
         app:layout_constraintTop_toTopOf="@+id/alarm_button"
         android:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/optimal_sleep_time_tv"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/pink"
-        android:text="@string/optimal_sleep_time"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alarm_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:id="@+id/tv_sleep_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep_time"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/less_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/red_square"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sleep_time" />
+
+            <TextView
+                android:id="@+id/less_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/unsafe"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/less_iv"
+                app:layout_constraintTop_toTopOf="@id/less_iv" />
+
+            <TextView
+                android:id="@+id/less_hours_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/less_tv"
+                app:layout_constraintStart_toStartOf="@id/less_iv"
+                app:layout_constraintTop_toBottomOf="@id/less_tv" />
+
+            <LinearLayout
+                android:id="@+id/optimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/more_iv"
+                app:layout_constraintStart_toEndOf="@id/less_tv"
+                app:layout_constraintTop_toTopOf="@id/less_iv">
+
+                <ImageView
+                    android:id="@+id/optimal_iv"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/green_square" />
+
+                <TextView
+                    android:id="@+id/optimal_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="@string/optimal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                app:layout_constraintEnd_toEndOf="@id/optimal"
+                app:layout_constraintStart_toStartOf="@id/optimal"
+                app:layout_constraintTop_toBottomOf="@id/optimal">
+
+                <TextView
+                    android:id="@+id/optimal_hours_tv"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/more_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/yellow_square"
+                app:layout_constraintEnd_toStartOf="@id/more_tv"
+                app:layout_constraintTop_toTopOf="@id/less_iv" />
+
+            <TextView
+                android:id="@+id/more_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:textColor="@color/white"
+                android:text="@string/appropriate"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/more_iv" />
+
+            <TextView
+                android:id="@+id/more_hours_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@id/more_iv"
+                app:layout_constraintEnd_toEndOf="@id/more_tv"
+                app:layout_constraintTop_toBottomOf="@id/more_tv" />
+
+            <TextView
+                android:id="@+id/mid_bold_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wake_up_time"
+                android:textSize="18sp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/more_hours_tv"/>
+
+            <TextView
+                android:id="@+id/mid_small_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintEnd_toEndOf="@+id/mid_bold_tv"
+                app:layout_constraintStart_toStartOf="@+id/mid_bold_tv"
+                app:layout_constraintTop_toBottomOf="@+id/mid_bold_tv"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

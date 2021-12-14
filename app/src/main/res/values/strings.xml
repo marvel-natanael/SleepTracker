@@ -9,12 +9,14 @@
     <string name="title_profile">Profile</string>
     <string name="you_have_slept">You have slept for</string>
     <string name="turn_off_screen">Turn off screen to start!</string>
-    <string name="start_button">Start Button</string>
+    <string name="start_button">Start</string>
     <string name="wake_up_time">You should wake up at</string>
     <string name="optimal_sleep_time">Your optimal sleep time is</string>
     <string name="alarm_set">No alarm has been set</string>
-    <string name="enough_sleep">Nice</string>
-    <string name="less_sleep">Nah</string>
+    <string name="enough_sleep">You are well rested and ready to start the day!</string>
+    <string name="less_sleep">Your sleep time is too short!</string>
+    <string name="more_sleep">You have slept for too long!</string>
+    <string name="appropriate_sleep">Your sleep time is almost optimal!</string>
     <string name="close">Close</string>
     <string name="notification">Notification</string>
     <string name="alarm">Alarm</string>
@@ -28,4 +30,14 @@
     <string name="Adults">Adults (26 - 64 years)</string>
     <string name="OlderAdults">Older Adults (>= 65 years)</string>
     <string name="clock_line">clock_line</string>
+    <string name="iv_notif">iv_notif</string>
+    <string name="iv_alarm">iv_alarm</string>
+    <string name="notif_desc">Sets a notification for your sleep time</string>
+    <string name="alarm_desc">Sets an alarm at optimal wake up time</string>
+    <string name="settings">Settings</string>
+    <string name="developer">find me on GitHub! \n marvel-natanael/SleepTracker</string>
+    <string name="optimal">Optimal</string>
+    <string name="unsafe">Unsafe</string>
+    <string name="appropriate">Appropriate</string>
+    <string name="sleep_time">Sleep Time</string>
 </resources>

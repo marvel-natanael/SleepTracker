@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12dp"
     android:elevation="4dp"
-    android:backgroundTint="@color/cardview_dark_background"
+    android:backgroundTint="@color/cardview_light_background"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_notifications_black_24dp"/>
+            android:src="@drawable/img_berhasil"
+            android:contentDescription="iv_alert" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image"
-            android:textColor="@color/white"
             android:id="@+id/description"/>
 
         <TextView
@@ -45,8 +45,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description"
-            android:textColor="@color/white"/>
+            app:layout_constraintTop_toBottomOf="@+id/description"/>
 
         <Button
             android:id="@+id/close_button"

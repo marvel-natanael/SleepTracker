@@ -1,19 +1,14 @@
 package com.example.simplesleep.ui.profile
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.core.view.get
 import com.example.simplesleep.R
-import com.example.simplesleep.databinding.FragmentHomeBinding
 import com.example.simplesleep.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -24,7 +19,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    var spinAdapter: ArrayAdapter<CharSequence>? = null
+    private var spinAdapter: ArrayAdapter<CharSequence>? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -42,9 +37,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         val shared = requireActivity().getSharedPreferences("KEY_PREF", Context.MODE_PRIVATE)
         val position = shared.getInt("KEY_POS", 0)
-        Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_LONG).show()
 
-//
         _binding?.ageSpinner?.adapter = spinAdapter
         _binding?.ageSpinner?.onItemSelectedListener = this
         spinAdapter?.setDropDownViewResource(
@@ -52,18 +45,16 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
         _binding?.ageSpinner?.setSelection(position, true)
-//
+
         if (_binding?.ageSpinner != null) {
             _binding?.ageSpinner?.adapter = spinAdapter
             _binding?.ageSpinner?.onItemSelectedListener = this
         }
-//
         // Inflate the layout for this fragment
         return root
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val name = p0?.getItemAtPosition(p2).toString()
         val shared = requireActivity().getSharedPreferences("KEY_PREF", Context.MODE_PRIVATE)
         val editor = shared.edit()
         editor.putInt("KEY_AGE", p2)

@@ -14,16 +14,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.simplesleep.R
 import com.example.simplesleep.databinding.FragmentHomeBinding
 import com.example.simplesleep.ui.ResultDialog
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var maxSleepTimeArray: Array<String>
-    private lateinit var minSleepTimeArray: Array<String>
+    private lateinit var maxRecomSleepTimeArray: Array<String>
+    private lateinit var minRecomSleepTimeArray: Array<String>
+    private lateinit var maxApproSleepTimeArray: Array<String>
+    private lateinit var minApproSleepTimeArray: Array<String>
     var data = 0
 
     // This property is only valid between onCreateView and
@@ -33,10 +32,10 @@ class HomeFragment : Fragment() {
     private val mReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             val action = intent.action
-            if (Intent.ACTION_SCREEN_ON == action) {
+            if (Intent.ACTION_SCREEN_ON == action && homeViewModel.isWorking) {
                 binding.midBoldTv.visibility = View.VISIBLE
                 Handler().postDelayed(this::add, 3000)
-            } else if (Intent.ACTION_SCREEN_OFF == action) {
+            } else if (Intent.ACTION_SCREEN_OFF == action && homeViewModel.isWorking) {
                 homeViewModel.startTimer(binding.cMeter)
             }
         }
@@ -51,8 +50,10 @@ class HomeFragment : Fragment() {
         val fm = childFragmentManager
         val resultDialog = ResultDialog()
         homeViewModel.setDialog(resources,
-            minSleepTimeArray[data].toLong(),
-            maxSleepTimeArray[data].toLong())
+            minRecomSleepTimeArray[data].toLong(),
+            maxRecomSleepTimeArray[data].toLong(),
+            minApproSleepTimeArray[data].toLong(),
+            maxApproSleepTimeArray[data].toLong())
         resultDialog.resultText = homeViewModel.resultString
         resultDialog.resultImage = homeViewModel.resultImage
 
@@ -79,48 +80,42 @@ class HomeFragment : Fragment() {
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF)
         requireActivity().registerReceiver(mReceiver, intentFilter)
 
-        binding.midSmallTv.text = getWakeUpTime()
-
         val shared = requireActivity().getSharedPreferences("KEY_PREF", Context.MODE_PRIVATE)
-        maxSleepTimeArray = resources.getStringArray(R.array.sleep_time_max)
-        minSleepTimeArray = resources.getStringArray(R.array.sleep_time_min)
-        data = shared.getInt("KEY_AGE", 0)
+        maxRecomSleepTimeArray = resources.getStringArray(R.array.sleep_time_recommended_max)
+        minRecomSleepTimeArray = resources.getStringArray(R.array.sleep_time_recommended_min)
+        maxApproSleepTimeArray = resources.getStringArray(R.array.sleep_time_appropriate_max)
+        minApproSleepTimeArray = resources.getStringArray(R.array.sleep_time_appropriate_min)
 
-        binding.optimalSleepTimeTv.text =
-            "${getString(R.string.optimal_sleep_time)} ${maxSleepTimeArray[data]} hours"
+        data = shared.getInt("KEY_AGE", 0)
+        val addedHours = homeViewModel.parseData(minRecomSleepTimeArray, data)
+        val maxRecomSleepTime = homeViewModel.parseData(maxRecomSleepTimeArray, data)
+        val minSleepTime = homeViewModel.parseData(minApproSleepTimeArray, data)
+        val maxSleepTime = homeViewModel.parseData(maxApproSleepTimeArray, data)
+        binding.midSmallTv.text = homeViewModel.getWakeUpTime(addedHours)
+        binding.cMeter.text = getString(R.string.start_button)
+
+        //Optimal
+        binding.optimalHoursTv.text = "$addedHours - $maxRecomSleepTime hours"
+        //Unrecommended
+        binding.lessHoursTv.text = "< $minSleepTime hours\n> $maxSleepTime hours"
+        //Appropriate
+        binding.moreHoursTv.text = "$minSleepTime - $addedHours hours\n$maxRecomSleepTime - $maxSleepTime hours"
 
         binding.alarmButton.setOnClickListener {
-            if (homeViewModel.isWorking) {
+            if (!homeViewModel.isWorking) {
                 homeViewModel.resetTimer(binding.cMeter)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_proses)
                 binding.midSmallTv.text = ""
                 binding.midBoldTv.text = getString(R.string.turn_off_screen)
             } else {
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
+                binding.cMeter.text = getString(R.string.start_button)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
-                binding.midSmallTv.text = getWakeUpTime()
+                binding.midSmallTv.text = homeViewModel.getWakeUpTime(addedHours)
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
         }
-
         return root
-    }
-
-    private fun getWakeUpTime(): String {
-        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val currentTime = sdf.format(Date())
-        var date: Date? = null
-        try {
-            date = sdf.parse(currentTime)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-        calendar.add(Calendar.HOUR, 8)
-
-        return calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE)
-            .toString()
     }
 
     override fun onDestroyView() {
