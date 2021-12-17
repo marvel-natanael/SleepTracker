@@ -1,19 +1,26 @@
 package com.example.simplesleep.ui.home
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+
+import android.app.*
+import android.content.*
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.simplesleep.R
 import com.example.simplesleep.databinding.FragmentHomeBinding
 import com.example.simplesleep.ui.ResultDialog
+import com.example.simplesleep.ui.profile.ProfileFragment
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -23,7 +30,14 @@ class HomeFragment : Fragment() {
     private lateinit var minRecomSleepTimeArray: Array<String>
     private lateinit var maxApproSleepTimeArray: Array<String>
     private lateinit var minApproSleepTimeArray: Array<String>
+    private lateinit var contexts: Context
+    private lateinit var alarmManager : AlarmManager
     var data = 0
+    //notifikasi
+    private lateinit var notificationManager: NotificationManagerCompat
+    private val CHANNEL_ID = "Channel_id"
+    private val CHANNEL_NAME = "notif"
+    private val notifikasiId = 101
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -65,6 +79,7 @@ class HomeFragment : Fragment() {
         resultDialog.show(fm, "fragment_alert")
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -100,22 +115,66 @@ class HomeFragment : Fragment() {
         binding.lessHoursTv.text = "< $minSleepTime hours\n> $maxSleepTime hours"
         //Appropriate
         binding.moreHoursTv.text = "$minSleepTime - $addedHours hours\n$maxRecomSleepTime - $maxSleepTime hours"
-
+        contexts = requireActivity()
+        alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         binding.alarmButton.setOnClickListener {
             if (!homeViewModel.isWorking) {
                 homeViewModel.resetTimer(binding.cMeter)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_proses)
                 binding.midSmallTv.text = ""
                 binding.midBoldTv.text = getString(R.string.turn_off_screen)
+                val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
+                val loadBoleanNotif :Boolean = sharNot.getBoolean("BOOLEAN_KEY", false)
+                if (loadBoleanNotif){
+                    showNotification()
+                }
+                val inten = Intent(contexts, Receiver::class.java)
+                val pendingIntent = PendingIntent.getBroadcast(contexts, 0, inten, PendingIntent.FLAG_UPDATE_CURRENT)
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10, pendingIntent)
             } else {
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
                 binding.cMeter.text = getString(R.string.start_button)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
                 binding.midSmallTv.text = homeViewModel.getWakeUpTime(addedHours)
+
+
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
+
         }
         return root
+    }
+
+    class Receiver: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d("HomeFragment", "Reciver: "+ Date().toString())
+        }
+    }
+
+    private fun showNotification() {
+        val message = "Waktu akan berjalan ketika kamu matikan layar"
+
+        val notificationManagerCompat =
+            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val builder = NotificationCompat.Builder(requireActivity(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+            .setContentTitle("Simple Sleep Sedang Berlangsung...")
+            .setContentText(message)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            builder.setChannelId(CHANNEL_ID)
+            notificationManagerCompat.createNotificationChannel(channel)
+        }
+
+        val notification = builder.build()
+        notificationManagerCompat.notify(100, notification)
     }
 
     override fun onDestroyView() {
