@@ -3,6 +3,7 @@ package com.example.simplesleep.ui.home
 
 import android.app.*
 import android.content.*
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -11,11 +12,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.simplesleep.MainActivity
 import com.example.simplesleep.R
 import com.example.simplesleep.databinding.FragmentHomeBinding
 import com.example.simplesleep.ui.ResultDialog
@@ -49,6 +52,7 @@ class HomeFragment : Fragment() {
             if (Intent.ACTION_SCREEN_ON == action && homeViewModel.isWorking) {
                 binding.midBoldTv.visibility = View.VISIBLE
                 Handler().postDelayed(this::add, 3000)
+
             } else if (Intent.ACTION_SCREEN_OFF == action && homeViewModel.isWorking) {
                 homeViewModel.startTimer(binding.cMeter)
             }
@@ -116,42 +120,55 @@ class HomeFragment : Fragment() {
         //Appropriate
         binding.moreHoursTv.text = "$minSleepTime - $addedHours hours\n$maxRecomSleepTime - $maxSleepTime hours"
         contexts = requireActivity()
-        alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         binding.alarmButton.setOnClickListener {
             if (!homeViewModel.isWorking) {
                 homeViewModel.resetTimer(binding.cMeter)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_proses)
                 binding.midSmallTv.text = ""
                 binding.midBoldTv.text = getString(R.string.turn_off_screen)
+                //notif
                 val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
                 val loadBoleanNotif :Boolean = sharNot.getBoolean("BOOLEAN_KEY", false)
+
                 if (loadBoleanNotif){
                     showNotification()
                 }
-                val inten = Intent(contexts, Receiver::class.java)
-                val pendingIntent = PendingIntent.getBroadcast(contexts, 0, inten, PendingIntent.FLAG_UPDATE_CURRENT)
-                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10, pendingIntent)
+                //alarm
+                val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val inten = Intent(context, Receiver::class.java)
+                val pendingIntent = PendingIntent.getBroadcast(context, 100, inten, 0)
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pendingIntent)
+                Toast.makeText(context, "Alarm Diset "+Date().toString(), Toast.LENGTH_LONG).show()
             } else {
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
                 binding.cMeter.text = getString(R.string.start_button)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
                 binding.midSmallTv.text = homeViewModel.getWakeUpTime(addedHours)
-
-
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
+
 
         }
         return root
     }
 
     class Receiver: BroadcastReceiver(){
+
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("HomeFragment", "Reciver: "+ Date().toString())
+            Toast.makeText(context, "Alarm sedang berbunyi"+Date().toString(), Toast.LENGTH_LONG).show()
+            var i = Intent(context, MainActivity::class.java)
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context?.startActivity(i)
+            val obj = HomeFragment()
+            obj.showNotification()
         }
+
     }
 
-    private fun showNotification() {
+
+
+    fun showNotification() {
         val message = "Waktu akan berjalan ketika kamu matikan layar"
 
         val notificationManagerCompat =

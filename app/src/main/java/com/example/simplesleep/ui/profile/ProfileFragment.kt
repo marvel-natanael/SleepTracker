@@ -1,5 +1,6 @@
 package com.example.simplesleep.ui.profile
 
+import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +13,9 @@ import android.widget.ArrayAdapter
 import com.example.simplesleep.R
 import com.example.simplesleep.databinding.FragmentProfileBinding
 import android.content.SharedPreferences
-
-
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
+import java.util.*
 
 
 class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -24,6 +26,9 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var picker: MaterialTimePicker
+    private  lateinit var calendar: Calendar
+    private  lateinit var alarmManager : AlarmManager
 
     private var spinAdapter: ArrayAdapter<CharSequence>? = null
     override fun onCreateView(
@@ -90,11 +95,43 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 }.apply()
             }
         }
-
+        //timePicker
+        binding.btnTime.setOnClickListener{
+            showTimer()
+        }
         // Inflate the layout for this fragment
         return root
     }
+    private fun showTimer(){
+        picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_12H)
+            .setHour(12)
+            .setMinute(0)
+            .setTitleText("Select Waktu Notifikasi")
+            .build()
 
+        picker.show(childFragmentManager, "foxandroid")
+        picker.addOnPositiveButtonClickListener{
+            if (picker.hour > 12){
+                binding.selecttime.text =
+                    String.format("%02d", picker.hour - 12)+":" + String.format("%02d", picker.minute) + "PM"
+            }else{
+                binding.selecttime.text = String.format("%02d", picker.hour)+":" + String.format("%02d", picker.minute) + "AM"
+            }
+
+            calendar = Calendar.getInstance()
+            calendar[Calendar.HOUR_OF_DAY] = picker.hour
+            calendar[Calendar.MINUTE] = picker.minute
+            calendar[Calendar.SECOND] = 0
+            calendar[Calendar.MILLISECOND] = 0
+        }
+    }
+//    private fun setAlarm(){
+//        alarmManager = getSystemService(ALARM_SERVICE) as alarmManager
+//        val intent = Inten(this,AlarmReceiver::class.java)
+//
+//        pe
+//    }
     private fun loadDAta(){
         val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
         val loadBoleanNotif :Boolean = sharNot.getBoolean("BOOLEAN_KEY", false)
@@ -124,4 +161,5 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding?.ageSpinner?.selectedItemPosition?.let { editor.putInt("KEY_POS", it) }
         editor.apply()
     }
+
 }
