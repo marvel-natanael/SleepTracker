@@ -3,7 +3,6 @@ package com.example.simplesleep.ui.profile
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,20 +21,18 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentProfileBinding? = null
     var notif = false
-
+    var alarm = false
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var picker: MaterialTimePicker
     private  lateinit var calendar: Calendar
-    private  lateinit var alarmManager : AlarmManager
 
     private var spinAdapter: ArrayAdapter<CharSequence>? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -54,16 +51,14 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         spinAdapter?.setDropDownViewResource(
             R.layout.support_simple_spinner_dropdown_item)
 
-
         _binding?.ageSpinner?.setSelection(position, true)
 
         if (_binding?.ageSpinner != null) {
             _binding?.ageSpinner?.adapter = spinAdapter
             _binding?.ageSpinner?.onItemSelectedListener = this
         }
-        loadDAta()
+        loadData()
 
-//        binding.switchNotif.isChecked = notif
         binding.switchNotif.setOnClickListener{
             if(binding.switchNotif.isChecked){
                 val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
@@ -102,6 +97,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Inflate the layout for this fragment
         return root
     }
+
     private fun showTimer(){
         picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -114,9 +110,9 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         picker.addOnPositiveButtonClickListener{
             if (picker.hour > 12){
                 binding.selecttime.text =
-                    String.format("%02d", picker.hour - 12)+":" + String.format("%02d", picker.minute) + "PM"
+                    String.format("%02d", picker.hour - 12)+":" + String.format("%02d", picker.minute)
             }else{
-                binding.selecttime.text = String.format("%02d", picker.hour)+":" + String.format("%02d", picker.minute) + "AM"
+                binding.selecttime.text = String.format("%02d", picker.hour)+":" + String.format("%02d", picker.minute)
             }
 
             calendar = Calendar.getInstance()
@@ -126,13 +122,8 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             calendar[Calendar.MILLISECOND] = 0
         }
     }
-//    private fun setAlarm(){
-//        alarmManager = getSystemService(ALARM_SERVICE) as alarmManager
-//        val intent = Inten(this,AlarmReceiver::class.java)
-//
-//        pe
-//    }
-    private fun loadDAta(){
+
+    private fun loadData(){
         val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
         val loadBoleanNotif :Boolean = sharNot.getBoolean("BOOLEAN_KEY", false)
 
@@ -142,7 +133,9 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.switchNotif.isChecked = loadBoleanNotif
         binding.switchAlarm.isChecked = loadBoleanAlarm
         notif = loadBoleanNotif
+        alarm = loadBoleanAlarm
     }
+
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         val shared = requireActivity().getSharedPreferences("KEY_PREF", Context.MODE_PRIVATE)
         val editor = shared.edit()
@@ -161,5 +154,4 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding?.ageSpinner?.selectedItemPosition?.let { editor.putInt("KEY_POS", it) }
         editor.apply()
     }
-
 }
