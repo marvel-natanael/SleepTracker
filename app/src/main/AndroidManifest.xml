@@ -23,6 +23,10 @@
         <receiver android:name=".ui.home.HomeFragment$Receiver">
 
         </receiver>
+        <receiver
+            android:name=".ui.notifications.NotifikasiReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

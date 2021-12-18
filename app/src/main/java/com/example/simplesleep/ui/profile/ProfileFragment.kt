@@ -1,7 +1,11 @@
 package com.example.simplesleep.ui.profile
 
 import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +16,9 @@ import android.widget.ArrayAdapter
 import com.example.simplesleep.R
 import com.example.simplesleep.databinding.FragmentProfileBinding
 import android.content.SharedPreferences
+import android.os.Build
+import android.widget.Toast
+import com.example.simplesleep.ui.notifications.NotifikasiReceiver
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.*
@@ -27,6 +34,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val binding get() = _binding!!
     private lateinit var picker: MaterialTimePicker
     private  lateinit var calendar: Calendar
+    private  lateinit var alarmManager : AlarmManager
 
     private var spinAdapter: ArrayAdapter<CharSequence>? = null
     override fun onCreateView(
@@ -58,7 +66,8 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             _binding?.ageSpinner?.onItemSelectedListener = this
         }
         loadData()
-
+        //notifikasi
+        showNotifications()
         binding.switchNotif.setOnClickListener{
             if(binding.switchNotif.isChecked){
                 val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
@@ -66,12 +75,16 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 editNot.apply{
                     putBoolean("BOOLEAN_KEY", binding.switchNotif.isChecked)
                 }.apply()
+                binding.setNot.isEnabled = true
+                Toast.makeText(context, "Notifikasi Dihidupkan", Toast.LENGTH_SHORT).show()
             }else{
                 val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
                 val editNot : SharedPreferences.Editor = sharNot.edit()
                 editNot.apply{
                     putBoolean("BOOLEAN_KEY", binding.switchNotif.isChecked)
                 }.apply()
+                cancelNotifikasi()
+                binding.setNot.isEnabled = false
             }
         }
         //alarm switch
@@ -93,6 +106,9 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         //timePicker
         binding.btnTime.setOnClickListener{
             showTimer()
+        }
+        binding.setNot.setOnClickListener{
+            setNotifikasi()
         }
         // Inflate the layout for this fragment
         return root
@@ -134,6 +150,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.switchAlarm.isChecked = loadBoleanAlarm
         notif = loadBoleanNotif
         alarm = loadBoleanAlarm
+        binding.setNot.isEnabled = notif
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -153,5 +170,40 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         editor.putString("KEY_AGE", name.toString())
         _binding?.ageSpinner?.selectedItemPosition?.let { editor.putInt("KEY_POS", it) }
         editor.apply()
+    }
+
+    fun showNotifications() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "foxandroid",
+                "foxandroideminder",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            val notifMana = context?.getSystemService(
+                NotificationManager::class.java
+            )
+            notifMana?.createNotificationChannel(channel)
+        }
+
+    }
+    private fun cancelNotifikasi(){
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val inten = Intent(context, NotifikasiReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 100 , inten, 0)
+        alarmManager.cancel(pendingIntent)
+        Toast.makeText(context, "Notifikasi Dimatikan", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun setNotifikasi(){
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val inten = Intent(context, NotifikasiReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 100 , inten, 0)
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY, pendingIntent
+        )
+        Toast.makeText(context, "Notifikasi Success Update", Toast.LENGTH_SHORT).show()
+
     }
 }
