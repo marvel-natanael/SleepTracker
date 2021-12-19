@@ -1,6 +1,4 @@
 package com.example.simplesleep.ui.home
-
-
 import android.app.*
 import android.content.*
 import android.content.Context.ALARM_SERVICE
@@ -9,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +21,8 @@ import com.example.simplesleep.databinding.FragmentHomeBinding
 import com.example.simplesleep.ui.ResultDialog
 import java.util.*
 import android.media.RingtoneManager
-
 import android.net.Uri
 import androidx.annotation.RequiresApi
-
 
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
@@ -84,6 +79,7 @@ class HomeFragment : Fragment() {
         resultDialog.show(fm, "fragment_alert")
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -110,7 +106,9 @@ class HomeFragment : Fragment() {
         val maxRecomSleepTime = homeViewModel.parseData(maxRecomSleepTimeArray, data)
         val minSleepTime = homeViewModel.parseData(minApproSleepTimeArray, data)
         val maxSleepTime = homeViewModel.parseData(maxApproSleepTimeArray, data)
-        binding.midSmallTv.text = homeViewModel.getWakeUpTime(addedHours)
+
+        wakeUpTime = homeViewModel.getWakeUpTime(addedHours, Date())
+        binding.midSmallTv.text = wakeUpTime.toString()
         binding.cMeter.text = getString(R.string.start_button)
 
         //Optimal
@@ -144,18 +142,15 @@ class HomeFragment : Fragment() {
                     showNotification(requireContext())
                 }
                 if (loadBooleanAlarm){
-                    showAlarm()
-                }
-                else{
-                    cancelAlarm()
+                    ringAlarm(wakeUpTime)
                 }
 
             } else {
-                ringtone.stop()
+                cancelAlarm()
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
                 binding.cMeter.text = getString(R.string.start_button)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
-                binding.midSmallTv.text = homeViewModel.getWakeUpTime(addedHours)
+                binding.midSmallTv.text = wakeUpTime.toString()
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
         }
@@ -169,30 +164,21 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, "Alarm sedang berbunyi"+Date().toString(), Toast.LENGTH_LONG).show()
             val i = Intent(context, MainActivity::class.java)
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            // play ringtone
             ringtone.play()
-            ringtone.setLooping(true)
-
-            val obj = HomeFragment()
-            //context?.let { obj.showNotification(it) }
+            ringtone.isLooping = true
         }
     }
 
-    private fun showAlarm(){
+    private fun ringAlarm(alarmTime: Date){
         val alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, Receiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 101, intent, 0)
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 3000, pendingIntent)
+        val pendingIntent = PendingIntent.getBroadcast(context, 100, intent, 0)
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.time, pendingIntent)
         Toast.makeText(context, "Alarm Diset "+Date().toString(), Toast.LENGTH_LONG).show()
     }
 
     private fun cancelAlarm(){
-        val alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, Receiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 101, intent, 0)
-        pendingIntent.cancel()
-        alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Alarm Tidak "+Date().toString(), Toast.LENGTH_LONG).show()
+        ringtone.stop()
     }
 
     private fun showNotification(context: Context) {
@@ -228,5 +214,6 @@ class HomeFragment : Fragment() {
 
     companion object{
         private lateinit var ringtone: Ringtone
+        private lateinit var wakeUpTime: Date
     }
 }

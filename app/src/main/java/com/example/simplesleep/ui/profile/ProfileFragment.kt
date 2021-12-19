@@ -172,7 +172,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         editor.apply()
     }
 
-    fun showNotifications() {
+    private fun showNotifications() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "foxandroid",
@@ -184,15 +184,14 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             )
             notifMana?.createNotificationChannel(channel)
         }
-
     }
+
     private fun cancelNotifikasi(){
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val inten = Intent(context, NotifikasiReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, 100 , inten, 0)
         alarmManager.cancel(pendingIntent)
         Toast.makeText(context, "Notifikasi Dimatikan", Toast.LENGTH_SHORT).show()
-
     }
 
     private fun setNotifikasi(){
@@ -204,6 +203,5 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             AlarmManager.INTERVAL_DAY, pendingIntent
         )
         Toast.makeText(context, "Notifikasi Success Update", Toast.LENGTH_SHORT).show()
-
     }
 }

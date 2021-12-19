@@ -8,15 +8,9 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.example.simplesleep.MainActivity
 import com.example.simplesleep.R
-import com.example.simplesleep.ui.home.HomeFragment
-import java.util.*
 
 class NotifikasiReceiver : BroadcastReceiver(){
 companion object {
@@ -30,15 +24,12 @@ companion object {
 }
 
     override fun onReceive(context: Context, intent: Intent) {
-
         val type = intent.getStringExtra(EXTRA_TYPE)
         val message = "Sudah waktunya tidur."
         val title = "Sleep Time"
         val notifId = if (type.equals(TYPE_ONE_TIME, ignoreCase = true)) ID_ONETIME else ID_REPEATING
 
-        if (message != null) {
-            showAlarmNotification(context, title, message, notifId)
-        }
+        showAlarmNotification(context, title, message, notifId)
     }
 
     private fun showAlarmNotification(context: Context, title: String, message: String, notifId: Int) {

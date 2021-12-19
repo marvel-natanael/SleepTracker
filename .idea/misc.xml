@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/SleepTracker/app/src/main/res/layout/fragment_dashboard.xml" value="0.25416666666666665" />
-        <entry key="..\:/SleepTracker/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/fragment_home.xml" value="0.176" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/SleepTracker/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
       </map>
     </option>
   </component>

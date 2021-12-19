@@ -83,23 +83,13 @@ class HomeViewModel : ViewModel() {
         resultSleepTime = "You have slept for $h hours $m minutes $s seconds"
     }
 
-    fun getWakeUpTime(addedTime: Int): String {
-        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val currentTime = sdf.format(Date())
-        var date: Date? = null
-        try {
-            date = sdf.parse(currentTime)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
+    fun getWakeUpTime(addedTime: Int, currentTime: Date): Date {
+
         val calendar = Calendar.getInstance()
-        if (date != null) {
-            calendar.time = date
-        }
+        calendar.time = currentTime
         calendar.add(Calendar.HOUR, addedTime)
 
-        return calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE)
-            .toString()
+        return calendar.time
     }
 
     fun parseData(arr: Array<String>,data: Int): Int{
