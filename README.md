@@ -8,7 +8,7 @@ This is a sleep tracker app made with Android Studio and Kotlin
 3. You can adjust your sleep time based on age categories
 
 ## Alarm and Notification
-1 Use alarm and notification to remind your sleep and wake up time
+1. Use alarm and notification to remind your sleep and wake up time
 
 # Libraries
 1. https://github.com/ismaeldivita/chip-navigation-bar
