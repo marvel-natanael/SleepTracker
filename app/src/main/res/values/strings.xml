@@ -40,4 +40,6 @@
     <string name="unsafe">Unsafe</string>
     <string name="appropriate">Appropriate</string>
     <string name="sleep_time">Sleep Time</string>
+    <string name="set_notification_time">Set Notification Time</string>
+    <string name="save">Save</string>
 </resources>

@@ -126,9 +126,9 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         picker.addOnPositiveButtonClickListener{
             if (picker.hour > 12){
                 binding.selecttime.text =
-                    String.format("%02d", picker.hour - 12)+":" + String.format("%02d", picker.minute)
+                    String.format("%02d", picker.hour - 12)+":" + String.format("%02d", picker.minute) + "PM"
             }else{
-                binding.selecttime.text = String.format("%02d", picker.hour)+":" + String.format("%02d", picker.minute)
+                binding.selecttime.text = String.format("%02d", picker.hour)+":" + String.format("%02d", picker.minute) + "AM"
             }
 
             calendar = Calendar.getInstance()

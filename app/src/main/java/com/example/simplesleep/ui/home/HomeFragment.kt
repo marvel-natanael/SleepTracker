@@ -23,6 +23,7 @@ import java.util.*
 import android.media.RingtoneManager
 import android.net.Uri
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
@@ -107,8 +108,11 @@ class HomeFragment : Fragment() {
         val minSleepTime = homeViewModel.parseData(minApproSleepTimeArray, data)
         val maxSleepTime = homeViewModel.parseData(maxApproSleepTimeArray, data)
 
+        //Wake up time
         wakeUpTime = homeViewModel.getWakeUpTime(addedHours, Date())
-        binding.midSmallTv.text = wakeUpTime.toString()
+        binding.midSmallTv.text = SimpleDateFormat("HH:mm").format(wakeUpTime)
+
+        //Timer
         binding.cMeter.text = getString(R.string.start_button)
 
         //Optimal
@@ -132,6 +136,7 @@ class HomeFragment : Fragment() {
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_proses)
                 binding.midSmallTv.text = ""
                 binding.midBoldTv.text = getString(R.string.turn_off_screen)
+                binding.alarmSetTv.text = "Alarm is set at\n$wakeUpTime"
                 //notif
                 val sharNot : SharedPreferences = requireActivity().getSharedPreferences("shareNotif", Context.MODE_PRIVATE)
                 val sharAlarm : SharedPreferences = requireActivity().getSharedPreferences("shareAlarm", Context.MODE_PRIVATE)
@@ -150,7 +155,7 @@ class HomeFragment : Fragment() {
                 binding.midBoldTv.text = getString(R.string.wake_up_time)
                 binding.cMeter.text = getString(R.string.start_button)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
-                binding.midSmallTv.text = wakeUpTime.toString()
+                binding.midSmallTv.text = SimpleDateFormat("HH:mm").format(wakeUpTime)
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
         }
