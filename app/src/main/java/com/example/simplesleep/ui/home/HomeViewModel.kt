@@ -84,7 +84,6 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getWakeUpTime(addedTime: Int, currentTime: Date): Date {
-
         val calendar = Calendar.getInstance()
         calendar.time = currentTime
         calendar.add(Calendar.HOUR, addedTime)

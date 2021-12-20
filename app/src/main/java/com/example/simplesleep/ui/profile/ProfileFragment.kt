@@ -95,12 +95,14 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 editNotAlarm.apply{
                     putBoolean("BOOLEAN_KEY_ALARM", binding.switchAlarm.isChecked)
                 }.apply()
+                Toast.makeText(context, "Alarm has been set", Toast.LENGTH_SHORT).show()
             }else{
                 val alarmNot : SharedPreferences = requireActivity().getSharedPreferences("shareAlarm", Context.MODE_PRIVATE)
                 val editNotAlarm : SharedPreferences.Editor = alarmNot.edit()
                 editNotAlarm.apply{
                     putBoolean("BOOLEAN_KEY_ALARM", binding.switchAlarm.isChecked)
                 }.apply()
+                Toast.makeText(context, "Alarm off", Toast.LENGTH_SHORT).show()
             }
         }
         //timePicker
@@ -119,7 +121,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .setHour(12)
             .setMinute(0)
-            .setTitleText("Select Waktu Notifikasi")
+            .setTitleText("Select Notification Time")
             .build()
 
         picker.show(childFragmentManager, "foxandroid")
@@ -191,7 +193,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val inten = Intent(context, NotifikasiReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, 100 , inten, 0)
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Notifikasi Dimatikan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Notification Off", Toast.LENGTH_SHORT).show()
     }
 
     private fun setNotifikasi(){
@@ -202,6 +204,6 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY, pendingIntent
         )
-        Toast.makeText(context, "Notifikasi Success Update", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Notification Updated", Toast.LENGTH_SHORT).show()
     }
 }
