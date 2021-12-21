@@ -53,7 +53,6 @@ class HomeViewModel : ViewModel() {
         minApp: Long,
         maxApp: Long
     ) {
-
         val s = TimeUnit.MILLISECONDS.toSeconds(currentTime.value!!)
         val m = TimeUnit.MILLISECONDS.toMinutes(currentTime.value!!)
         val h = TimeUnit.MILLISECONDS.toHours(currentTime.value!!)
@@ -92,6 +91,6 @@ class HomeViewModel : ViewModel() {
     }
 
     fun parseData(arr: Array<String>,data: Int): Int{
-        return arr[data].toInt()/1000
+        return arr[data].toInt()/3600000
     }
 }

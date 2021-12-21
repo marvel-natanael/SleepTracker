@@ -156,6 +156,7 @@ class HomeFragment : Fragment() {
                 binding.cMeter.text = getString(R.string.start_button)
                 binding.alarmButton.background = resources.getDrawable(R.drawable.btn_start_end)
                 binding.midSmallTv.text = SimpleDateFormat("HH:mm").format(wakeUpTime)
+                binding.alarmSetTv.text = getString(R.string.alarm_set)
             }
             homeViewModel.isWorking = !homeViewModel.isWorking
         }
@@ -166,7 +167,6 @@ class HomeFragment : Fragment() {
         @RequiresApi(Build.VERSION_CODES.P)
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("HomeFragment", "Reciver: "+ Date().toString())
-            Toast.makeText(context, "Alarm sedang berbunyi"+Date().toString(), Toast.LENGTH_LONG).show()
             val i = Intent(context, MainActivity::class.java)
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             ringtone.play()
@@ -187,12 +187,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun showNotification(context: Context) {
-        val message = "Waktu akan berjalan ketika kamu matikan layar"
+        val message = "Turn off your screen to start!"
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(requireActivity(), CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-            .setContentTitle("Simple Sleep Sedang Berlangsung...")
+            .setContentTitle("Simple Sleep is ongoing...")
             .setContentText(message)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

@@ -13,50 +13,50 @@
     </string-array>
 
     <string-array name="sleep_time_recommended_min">
-        <item>14000</item>
-        <item>12000</item>
-        <item>11000</item>
-        <item>10000</item>
-        <item>9000</item>
-        <item>8000</item>
-        <item>7000</item>
-        <item>7000</item>
-        <item>7000</item>
+        <item>50400000</item>
+        <item>43200000</item>
+        <item>39600000</item>
+        <item>36000000</item>
+        <item>32400000</item>
+        <item>28800000</item>
+        <item>25200000</item>
+        <item>25200000</item>
+        <item>25200000</item>
     </string-array>
 
     <string-array name="sleep_time_recommended_max">
-        <item>17000</item>
-        <item>15000</item>
-        <item>14000</item>
-        <item>13000</item>
-        <item>11000</item>
-        <item>10000</item>
-        <item>9000</item>
-        <item>9000</item>
-        <item>8000</item>
+        <item>61200000</item>
+        <item>54000000</item>
+        <item>50400000</item>
+        <item>46800000</item>
+        <item>39600000</item>
+        <item>36000000</item>
+        <item>32400000</item>
+        <item>32400000</item>
+        <item>28800000</item>
     </string-array>
 
     <string-array name="sleep_time_appropriate_min">
-        <item>11000</item>
-        <item>10000</item>
-        <item>9000</item>
-        <item>8000</item>
-        <item>7000</item>
-        <item>7000</item>
-        <item>6000</item>
-        <item>6000</item>
-        <item>5000</item>
+        <item>39600000</item>
+        <item>36000000</item>
+        <item>32400000</item>
+        <item>28800000</item>
+        <item>25200000</item>
+        <item>25200000</item>
+        <item>21600000</item>
+        <item>21600000</item>
+        <item>18000000</item>
     </string-array>
 
     <string-array name="sleep_time_appropriate_max">
-        <item>19000</item>
-        <item>18000</item>
-        <item>16000</item>
-        <item>14000</item>
-        <item>12000</item>
-        <item>11000</item>
-        <item>11000</item>
-        <item>10000</item>
-        <item>9000</item>
+        <item>68400000</item>
+        <item>64800000</item>
+        <item>57600000</item>
+        <item>50400000</item>
+        <item>43200000</item>
+        <item>39600000</item>
+        <item>39600000</item>
+        <item>36000000</item>
+        <item>32400000</item>
     </string-array>
 </resources>
