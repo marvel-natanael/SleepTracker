@@ -2,7 +2,6 @@ package com.example.simplesleep.ui.notifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -15,8 +14,6 @@ import com.example.simplesleep.R
 class NotifikasiReceiver : BroadcastReceiver(){
 companion object {
     const val TYPE_ONE_TIME = "OneTimeAlarm"
-    const val TYPE_REPEATING = "RepeatingAlarm"
-    const val EXTRA_MESSAGE = "message"
     const val EXTRA_TYPE = "type"
     // Siapkan 2 id untuk 2 macam alarm, onetime dan repeating
     private const val ID_ONETIME = 100

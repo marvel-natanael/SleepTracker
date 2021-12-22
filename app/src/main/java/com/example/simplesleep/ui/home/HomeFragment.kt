@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.simplesleep.MainActivity
@@ -35,10 +34,10 @@ class HomeFragment : Fragment() {
     private lateinit var contexts: Context
     var data = 0
     //notifikasi
-    private lateinit var notificationManager: NotificationManagerCompat
+
     private val CHANNEL_ID = "Channel_id"
     private val CHANNEL_NAME = "notif"
-    private val notifikasiId = 101
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
